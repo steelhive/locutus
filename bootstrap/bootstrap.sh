@@ -1,7 +1,5 @@
 #! /bin/bash
 
-# xoxb-182711475602-M4DiJQTRzwAibSgnQb6PdMKA
-
 apt-get -y update
 apt-get -y install jq dnsmasq
 
