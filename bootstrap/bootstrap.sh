@@ -79,5 +79,5 @@ function provision-services () {
 
 function main () {
     provision-baseline
-    provision-node
+    provision-services
 }

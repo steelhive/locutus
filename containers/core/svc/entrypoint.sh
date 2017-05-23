@@ -16,4 +16,4 @@ case $ROLE in
         ;;
 esac
 
-consul agent -config=/etc/consul
+consul agent -config-dir=/etc/consul
