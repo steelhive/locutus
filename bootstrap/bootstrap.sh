@@ -57,11 +57,11 @@ function provision-node () {
         -e HOST_IP=$HOST_IP \
         -e JOIN_IPS=$JOIN_IPS \
         $L5S_CORE_SVC
+
     docker run -d \
         -e ROLE=$ROLE \
         -e HOST_IP=$HOST_IP \
         $L5S_CORE_EXEC
-
 }
 
 function main () {
