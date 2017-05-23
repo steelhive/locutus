@@ -47,7 +47,7 @@ function provision-baseline () {
     systemctl restart docker
 }
 
-function provision-node () {
+function provision-services () {
     local HOST_IP=$(get-host-ip)
     local JOIN_IPS=$(get-join-ips)
     local MASTERS=$(get-master-ips)
