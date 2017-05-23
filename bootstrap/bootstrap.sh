@@ -1,7 +1,7 @@
 #! /bin/bash
 
 export L5S_CORE_EXEC='steelhive/l5s-core-exec'
-export L5S_CORE_SVC='steelhive/l5s-core-exec'
+export L5S_CORE_SVC='steelhive/l5s-core-svc'
 export L5S_UTIL_AWS='steelhive/l5s-util-aws'
 
 function get-host-ip () {
