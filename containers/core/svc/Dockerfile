@@ -27,6 +27,6 @@ RUN wget -qO consul.zip $CONSUL_URL && \
     mv /tmp/consul-client.json /etc/consul/consul-client.json && \
     mv /tmp/consul-server.json /etc/consul/consul-server.json
 
-EXPOSE 8300 8301 8302 8400 8500 8600
+EXPOSE 8300 8301 8301/udp 8302 8302/udp 8400 8500 8600
 
 ENTRYPOINT ["entrypoint.sh"]
