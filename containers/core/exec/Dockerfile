@@ -27,7 +27,7 @@ RUN wget -qO nomad.zip $NOMAD_URL && \
     mv /tmp/nomad-client.hcl /etc/nomad/nomad-client.hcl && \
     mv /tmp/nomad-server.hcl /etc/nomad/nomad-server.hcl
 
-EXPOSE 4646 4647 4648
+EXPOSE 4646 4647 4648 4648/udp
 
 VOLUME ["/var/run/docker.sock"]
 
