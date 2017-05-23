@@ -9,7 +9,6 @@
     "start_join": ${JOIN_IPS},
     "retry_join": ${JOIN_IPS},
     "addresses": {
-        "rpc": "0.0.0.0",
         "dns": "0.0.0.0",
         "http": "0.0.0.0",
         "https": "0.0.0.0"

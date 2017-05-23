@@ -1,4 +1,5 @@
 #! /bin/bash
+set -e
 
 export L5S_CORE_EXEC='steelhive/l5s-core-exec'
 export L5S_CORE_SVC='steelhive/l5s-core-svc'
@@ -31,18 +32,22 @@ function get-role () {
 
 function provision-baseline () {
     # install the basics
+    echo 'installing baseline packages'
     apt-get -y update
     apt-get -y install jq dnsmasq
 
     # configure dnsmasq
+    echo 'configuring dnsmasq'
     echo server=/locutus/127.0.0.1#8600 > /etc/dnsmasq.d/10-consul
 
     # configure docker
+    echo 'installing docker'
     if [ "$(which docker)" == '' ]; then
         wget -qO- https://get.docker.com/ | sh
     fi
 
     # restart services
+    echo 'ensuring services are running'
     systemctl restart dnsmasq
     systemctl restart docker
 }
@@ -51,8 +56,10 @@ function provision-services () {
     local HOST_IP=$(get-host-ip)
     local JOIN_IPS=$(get-join-ips)
     local MASTERS=$(get-master-ips)
-    local ROLE=$(get-role $HOST_IP $MASTERS)
+    local ROLE=$(get-role $HOST_IP "$MASTERS")
 
+    echo "our role is: $ROLE"
+    echo 'starting services'
     # if [ "$ROLE" == 'master' ]; ... may start some things and not others
     docker run -d \
         -p 8300:8300 \
