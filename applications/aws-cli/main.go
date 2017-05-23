@@ -62,14 +62,14 @@ func main () {
     })
 
     app.Command("nodes", "find nodes by tag", func (cmd *cli.Cmd) {
-        var key = cmd.StringOpt("k key", "", "the tag name to filter on")
-        var tags = cmd.StringsOpt("t tag", nil, "the tag value to filter on")
+        var key = cmd.StringOpt("k key", "", "the key to filter on")
+        var values = cmd.StringsOpt("v value", nil, "the value to filter on")
         var ex = cmd.BoolOpt("x exclude-self", false, "exclude self")
 
         cmd.Action = func () {
             session := auth.GetSession(*profile, *region)
             q := query.New(session)
-            ips := q.GetPrivateIPs(key, tags)
+            ips := q.GetPrivateIPs(key, values)
             if *ex {
                 i := -1
                 metadata := q.GetSelf()

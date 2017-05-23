@@ -51,22 +51,22 @@ func (q *Query) GetInstances(input *ec2.DescribeInstancesInput) []ec2.Instance {
 }
 
 
-func (q *Query) GetPrivateIPs(key *string, tags *[]string) []string {
+func (q *Query) GetPrivateIPs(key *string, values *[]string) []string {
     input := &ec2.DescribeInstancesInput{}
 
-    if *key != "" && len(*tags) > 0 {
+    if *key != "" && len(*values) > 0 {
         name := fmt.Sprintf("tag:%s", *key)
 
-        values := make([]*string, len(*tags))
+        tagValues := make([]*string, len(*values))
 
-        for i, tag := range *tags {
-            values[i] = &tag
+        for i, tag := range *values {
+            tagValues[i] = &tag
         }
 
         filters := []*ec2.Filter{
             &ec2.Filter{
                 Name: &name,
-                Values: values,
+                Values: tagValues,
             },
         }
 
