@@ -8,7 +8,7 @@
     "advertise_addr": "${HOST_IP}",
     "retry_join": ${JOIN_IPS},
     "addresses": {
-        "dns": "${HOST_IP}:8600",
-        "http": "${HOST_IP}:8500"
+        "dns": "0.0.0.0:8600",
+        "http": "0.0.0.0:8500"
     }
 }
