@@ -11,11 +11,11 @@ function get-host-ip () {
 
 function get-master-ips () {
     # gets the IPs of all nodes with a tag of 'locutus:role' and a key of 'master'
-    docker run --rm $L5S_UTIL_AWS nodes -k locutus:role -t master
+    docker run --rm $L5S_UTIL_AWS nodes -k locutus:role -v master
 }
 
 function get-join-ips () {
-    docker run --rm $L5S_UTIL_AWS nodes -k locutus:role -t master -x
+    docker run --rm $L5S_UTIL_AWS nodes -k locutus:role -v master -x
 }
 
 function get-role () {
