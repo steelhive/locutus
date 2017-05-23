@@ -11,15 +11,20 @@ function get-host-ip () {
 }
 
 function get-master-ips () {
-    # gets the IPs of all nodes with a tag of 'locutus:role' and a key of 'master'
+    # gets the IPs of all nodes with a tag of 'locutus:role'
+    # and a key of 'master'
     docker run --rm $L5S_UTIL_AWS nodes -k locutus:role -v master
 }
 
 function get-join-ips () {
+    # gets the IPs of all nodes with a tag of 'locutus:role'
+    # and a key of 'master' that aren't us
     docker run --rm $L5S_UTIL_AWS nodes -k locutus:role -v master -x
 }
 
 function get-role () {
+    # if our ip is in the list of masters, then we're a master.
+    # otherwise, we're a minion
     local host_ip=$1
     local masters=$2
     local master=$(echo $masters | jq . | jq "contains([\"$host_ip\"])")
@@ -53,6 +58,7 @@ function provision-baseline () {
 }
 
 function provision-services () {
+    # get all the data and fire up the services
     local HOST_IP=$(get-host-ip)
     local JOIN_IPS=$(get-join-ips)
     local MASTERS=$(get-master-ips)
