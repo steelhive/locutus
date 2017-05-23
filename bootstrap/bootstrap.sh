@@ -6,7 +6,7 @@ export L5S_UTIL_AWS='steelhive/l5s-util-aws'
 
 function get-host-ip () {
     # get the IP of this instance from EC2 metadata
-    docker run --rm $L5S_UTIL_AWS self -i | jq -r
+    docker run --rm $L5S_UTIL_AWS self -i | jq . -r
 }
 
 function get-master-ips () {
@@ -19,10 +19,10 @@ function get-join-ips () {
 }
 
 function get-role () {
-    local host=$1
+    local host_ip=$1
     local masters=$2
-    local master=$(echo $masters | jq . | jq "contains([\"$host\"])")
-    if [ "$master" == true ]; then
+    local master=$(echo $masters | jq . | jq "contains([\"$host_ip\"])")
+    if [ "$master" == 'true' ]; then
         echo 'master'
     else
         echo 'client'
