@@ -1,0 +1,15 @@
+.DEFAULT_GOAL := build
+.SHELL := /bin/bash
+
+_namespace_ := steelhive
+
+clean:
+	docker rmi -f $(_namespace_)/$(_image_):latest
+
+build:
+	-@make prebuild || true
+	docker build -t $(_namespace_)/$(_image_):latest .
+	-@make postbuild || true
+
+push:
+	docker push $(_namespace_)/$(_image_):latest
