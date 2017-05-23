@@ -26,7 +26,7 @@ function get-role () {
     if [ "$master" == 'true' ]; then
         echo 'master'
     else
-        echo 'client'
+        echo 'minion'
     fi
 }
 

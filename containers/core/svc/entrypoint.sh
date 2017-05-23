@@ -4,10 +4,10 @@ envsubst < /etc/consul/consul-base.tpl > /etc/consul/consul-base.json
 rm /etc/consul/consul-base.tpl
 
 case $ROLE in
-    'client')
+    'minion')
         rm /etc/consul/consul-server.json
         ;;
-    'server')
+    'master')
         rm /etc/consul/consul-client.json
         ;;
     *)

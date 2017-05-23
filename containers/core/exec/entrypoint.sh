@@ -4,10 +4,10 @@ envsubst < /etc/nomad/nomad-base.tpl > /etc/nomad/nomad-base.hcl
 rm /etc/nomad/nomad-base.tpl
 
 case $ROLE in
-    'client')
+    'minion')
         rm /etc/nomad/nomad-server.hcl
         ;;
-    'server')
+    'master')
         rm /etc/nomad/nomad-client.hcl
         ;;
     *)
