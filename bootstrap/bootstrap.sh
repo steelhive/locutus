@@ -38,7 +38,9 @@ function provision-baseline () {
     echo server=/locutus/127.0.0.1#8600 > /etc/dnsmasq.d/10-consul
 
     # configure docker
-    wget -qO- https://get.docker.com/ | sh
+    if [ "$(which docker)" == '' ]; then
+        wget -qO- https://get.docker.com/ | sh
+    fi
 
     # restart services
     systemctl restart dnsmasq
