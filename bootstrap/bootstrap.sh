@@ -51,9 +51,17 @@ function provision-node () {
     local MASTERS=$(get-master-ips)
     local ROLE=$(get-role $HOST_IP $MASTERS)
 
-    if [ "$ROLE" == 'master' ]; then
-        docker run -d -e HOST_IP=$HOST_IP -e JOIN_IPS=$JOIN_IPS $L5S_CORE_SVC
-        docker run -d -e HOST_IP=$HOST_IP $L5S_CORE_EXEC
+    # if [ "$ROLE" == 'master' ]; ... may start some things and not others
+    docker run -d \
+        -e ROLE=$ROLE \
+        -e HOST_IP=$HOST_IP \
+        -e JOIN_IPS=$JOIN_IPS \
+        $L5S_CORE_SVC
+    docker run -d \
+        -e ROLE=$ROLE \
+        -e HOST_IP=$HOST_IP \
+        $L5S_CORE_EXEC
+
 }
 
 function main () {
