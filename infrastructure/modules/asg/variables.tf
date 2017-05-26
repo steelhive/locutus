@@ -5,6 +5,7 @@ variable "min_size"             {}
 variable "max_size"             {}
 variable "elb_name"             {}
 variable "tag_value"            {}
+variable "disk_size"            {}
 variable "ssh_key_name"         {}
 variable "desired_size"         {}
 variable "instance_type"        {}
