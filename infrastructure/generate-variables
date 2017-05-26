@@ -1,0 +1,29 @@
+#! /usr/bin/env python
+import os
+import re
+
+lines = []
+variables = []
+
+for module_name in os.listdir('./modules'):
+    path = './modules/{}/variables.tf'.format(module_name)
+    with open(path, 'r') as f:
+        for line in f.readlines():
+            variable = re.split('"([^"]*)"', line)
+            if len(variable) > 2:
+                variables.append([module_name, variable[1]])
+
+values = [x[1] for x in variables]
+print(values)
+for name, value in variables:
+    print(name, value)
+    if values.count(value) > 1:
+        if value not in lines:
+            lines.append('{}_{}'.format(name, value))
+    else:
+        lines.append(value)
+
+width = len(max(lines, key=len))
+template = '{:<' + str(width) + '} = ""'
+for line in lines:
+    print(template.format(line))

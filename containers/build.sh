@@ -5,6 +5,7 @@ export DIR=$(pwd)
 function build () {
     local dir=$1
     cd $dir
+    make clean
     make build
     make push
     cd $DIR

@@ -44,6 +44,9 @@ function provision-baseline () {
     # configure dnsmasq
     echo 'configuring dnsmasq'
     echo server=/locutus/127.0.0.1#8600 > /etc/dnsmasq.d/10-consul
+    sysctl -w net.ipv6.conf.lo.disable_ipv6=1
+    sysctl -w net.ipv6.conf.all.disable_ipv6=1
+    sysctl -w net.ipv6.conf.default.disable_ipv6=1
 
     # configure docker
     echo 'installing docker'
@@ -94,3 +97,5 @@ function main () {
     provision-baseline
     provision-services
 }
+
+main
