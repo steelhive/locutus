@@ -97,18 +97,3 @@ echo 'installing docker'
 if [ "$(which docker)" == '' ]; then
     wget -qO- https://get.docker.com/ | sh
 fi
-
-
-echo 'starting services are running'
-/usr/bin/consul-setup
-/usr/bin/nomad-setup
-
-systemctl enable nomad
-systemctl enable consul
-systemctl enable fabio
-
-systemctl start docker
-systemctl start dnsmasq
-systemctl start consul
-systemctl start nomad
-systemctl start fabio
