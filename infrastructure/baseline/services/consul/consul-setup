@@ -1,5 +1,6 @@
 #! /bin/bash
 
+export CLUSTER_SIZE=${CLUSTER_SIZE:-3}
 export HOST_IP=${HOST_IP:-$(l5s self -i | jq .)}
 export JOIN_IPS=${JOIN_IPS:-$(l5s nodes -k locutus:role -v master -x)}
 export MASTER_IPS=${MASTER_IPS:-$(l5s nodes -k locutus:role -v master)}

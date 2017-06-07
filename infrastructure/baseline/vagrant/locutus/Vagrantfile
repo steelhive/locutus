@@ -7,10 +7,10 @@ base_image = "ubuntu/xenial64"
 bootstrap_script = "../../provision.sh"
 cluster = {
     "l5s-master-1" => { :ip => "172.31.0.2", :role => "master" },
-    "l5s-master-2" => { :ip => "172.31.0.3", :role => "master" },
-    "l5s-master-3" => { :ip => "172.31.0.4", :role => "master" },
+    # "l5s-master-2" => { :ip => "172.31.0.3", :role => "master" },
+    # "l5s-master-3" => { :ip => "172.31.0.4", :role => "master" },
     "l5s-minion-1" => { :ip => "172.31.0.5", :role => "minion" },
-    "l5s-minion-2" => { :ip => "172.31.0.6", :role => "minion" }
+    # "l5s-minion-2" => { :ip => "172.31.0.6", :role => "minion" }
 }
 master_ips = cluster.
     select { | k, v | v[:role] == 'master' }.
