@@ -15,6 +15,16 @@ resource "aws_security_group_rule" "ingress" {
     lifecycle { create_before_destroy = true }
 }
 
+resource "aws_security_group_rule" "inter" {
+    type                        = "ingress"
+    source_security_group_id    = "${aws_security_group.sg.id}"
+    security_group_id           = "${aws_security_group.sg.id}"
+    from_port                   = 0
+    to_port                     = 0
+    protocol                    = "-1"
+    lifecycle { create_before_destroy = true }
+}
+
 resource "aws_security_group_rule" "egress" {
     type                        = "egress"
     cidr_blocks                 = ["0.0.0.0/0"]

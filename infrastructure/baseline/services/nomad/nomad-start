@@ -1,0 +1,24 @@
+#! /bin/bash
+
+export HOST_IP=${HOST_IP:-$(l5s self -i | jq .)}
+# export JOIN_IPS=${JOIN_IPS:-$(l5s nodes -k locutus:role -v master -x)}
+export MASTER_IPS=${MASTER_IPS:-$(l5s nodes -k locutus:role -v master)}
+export IS_MASTER=$(echo $MASTER_IPS | jq . | jq "contains([\"$HOST_IP\"])")
+
+if [ -z "$IS_MASTER" ]; then
+    echo 'Unable to determine server role; aborting.'
+    exit 1
+fi
+
+if [ ! -f '/etc/consul/nomad-base.hcl' ]; then
+    if [ "$IS_MASTER" == 'true' ]; then
+        rm /etc/nomad/nomad-client.hcl
+    else
+        rm /etc/nomad/nomad-server.hcl
+    fi
+fi
+
+envsubst < /etc/nomad/nomad-base.tpl > /etc/nomad/nomad-base.hcl
+# rm /etc/nomad/nomad-base.tpl
+
+nomad agent -config=/etc/nomad

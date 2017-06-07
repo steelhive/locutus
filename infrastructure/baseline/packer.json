@@ -1,0 +1,27 @@
+{
+    "variables": {
+        "ssh_key_name": {},
+        "ssh_key_file": {}
+    },
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "communicator": "ssh",
+            "region": "us-east-1",
+            "ssh_username": "ubuntu",
+            "instance_type": "t2.small",
+            "source_ami": "ami-a025aeb6",
+            "access_key": "{{ env AWS_ACCESS_KEY_ID }}",
+            "secret_key": "{{ env AWS_SECRET_ACCESS_KEY }}",
+            "ssh_keypair_name": "{{ user ssh_key_name }}",
+            "ssh_private_key_file": "{{ user ssh_key_file }}",
+            "ami_name": "locutus-node-{{ isotime \"02Jan2006\" | upper }}"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "./provision.sh"
+        }
+    ]
+}

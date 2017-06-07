@@ -10,6 +10,9 @@ clean:
 	docker rmi -f $(_namespace_)/$(_image_):latest
 
 build:
+    # The prebuild and postbuild targets, are here to copy files into the build
+    # context since docker doesn't like dealing with things outside of it's
+    # path. They can also be used for anything else.
 	-@make prebuild || true
 	docker build -t $(_namespace_)/$(_image_):latest .
 	-@make postbuild || true

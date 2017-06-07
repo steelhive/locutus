@@ -1,0 +1,24 @@
+#! /bin/bash
+
+export HOST_IP=${HOST_IP:-$(l5s self -i | jq .)}
+export JOIN_IPS=${JOIN_IPS:-$(l5s nodes -k locutus:role -v master -x)}
+export MASTER_IPS=${MASTER_IPS:-$(l5s nodes -k locutus:role -v master)}
+export IS_MASTER=$(echo $MASTER_IPS | jq . | jq "contains([\"$HOST_IP\"])")
+
+if [ -z "$IS_MASTER" ]; then
+    echo 'Unable to determine server role; aborting.'
+    exit 1
+fi
+
+if [ ! -f '/etc/consul/consul-base.json' ]; then
+    if [ "$IS_MASTER" == 'true' ]; then
+        rm /etc/consul/consul-client.json
+    else
+        rm /etc/consul/consul-server.json
+    fi
+fi
+
+envsubst < /etc/consul/consul-base.tpl > /etc/consul/consul-base.json
+# rm /etc/consul/consul-base.tpl
+
+consul agent -config-dir=/etc/consul

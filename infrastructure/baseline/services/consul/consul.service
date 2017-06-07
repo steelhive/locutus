@@ -1,0 +1,17 @@
+[Unit]
+Description=Consul
+Requires=network-online.target
+After=network-online.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+LimitNOFILE=65536
+Restart=on-failure
+RestartSec=30
+KillSignal=SIGTERM
+SyslogIdentifier=consul
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStart=/usr/bin/consul-start
