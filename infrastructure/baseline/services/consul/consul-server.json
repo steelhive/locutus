@@ -1,4 +1,4 @@
 {
     "server": true,
-    "bootstrap_expect": "${CLUSTER_SIZE}"
+    "bootstrap_expect": ${CLUSTER_SIZE}
 }

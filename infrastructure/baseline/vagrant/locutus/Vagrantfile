@@ -6,6 +6,7 @@ require 'json'
 base_image = "ubuntu/xenial64"
 provision_script = "../../provision.sh"
 userdata_script = "../../userdata.sh"
+
 cluster = {
     "l5s-master-1" => { :ip => "172.31.0.2", :role => "master" },
     # "l5s-master-2" => { :ip => "172.31.0.3", :role => "master" },
@@ -17,6 +18,9 @@ master_ips = cluster.
     select { | k, v | v[:role] == 'master' }.
     map { | k, v | v[:ip] }.
     to_json
+cluster_size = cluster.
+    select { | k, v | v[:role] == 'master' }.
+    length
 
 Vagrant.configure("2") do | config |
     cluster.each_with_index do | (name, data), i |
@@ -31,7 +35,8 @@ Vagrant.configure("2") do | config |
                 env: {
                     "HOST_IP" => data[:ip],
                     "JOIN_IPS" => master_ips,
-                    "MASTER_IPS" => master_ips
+                    "MASTER_IPS" => master_ips,
+                    "CLUSTER_SIZE" => cluster_size
                 }
         end
     end
