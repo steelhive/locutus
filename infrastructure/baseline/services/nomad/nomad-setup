@@ -12,12 +12,12 @@ fi
 
 if [ ! -f '/etc/nomad/nomad-base.hcl' ]; then
     if [ "$IS_MASTER" == 'true' ]; then
-        envsubst < /etc/nomad/nomad-server.hcl > /etc/nomad/nomad-server.hcl
-        rm /etc/nomad/nomad-client.hcl
+        envsubst < /etc/nomad/nomad-server.hcl > /etc/nomad/nomad-config.hcl
     else
-        envsubst < /etc/nomad/nomad-client.hcl > /etc/nomad/nomad-client.hcl
-        rm /etc/nomad/nomad-server.hcl
+        envsubst < /etc/nomad/nomad-client.hcl > /etc/nomad/nomad-config.hcl
     fi
+    rm /etc/nomad/nomad-client.hcl
+    rm /etc/nomad/nomad-server.hcl
 fi
 
 envsubst < /etc/nomad/nomad-base.tpl > /etc/nomad/nomad-base.hcl

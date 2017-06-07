@@ -13,12 +13,12 @@ fi
 
 if [ ! -f '/etc/consul/consul-base.json' ]; then
     if [ "$IS_MASTER" == 'true' ]; then
-        envsubst < /etc/consul/consul-server.json > /etc/consul/consul-server.json
-        rm /etc/consul/consul-client.json
+        envsubst < /etc/consul/consul-server.json > /etc/consul/consul-config.json
     else
-        envsubst < /etc/consul/consul-client.json > /etc/consul/consul-client.json
-        rm /etc/consul/consul-server.json
+        envsubst < /etc/consul/consul-client.json > /etc/consul/consul-config.json
     fi
+    rm /etc/consul/consul-client.json
+    rm /etc/consul/consul-server.json
 fi
 
 envsubst < /etc/consul/consul-base.tpl > /etc/consul/consul-base.json
