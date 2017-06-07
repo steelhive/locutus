@@ -14,4 +14,4 @@ RestartSec=30
 KillSignal=SIGTERM
 SyslogIdentifier=nomad
 ExecReload=/bin/kill -HUP $MAINPID
-ExecStart=/usr/bin/nomad-start
+ExecStart=/usr/bin/nomad agent -config=/etc/nomad

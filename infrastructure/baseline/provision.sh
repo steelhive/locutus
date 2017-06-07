@@ -51,8 +51,8 @@ cd /usr/bin
 wget -qO consul.zip "$CONSUL_URL"
 unzip consul.zip
 rm consul.zip
-wget -q "$L5SSVC_URL/consul/consul-start"
-chmod +x ./consul-start
+wget -q "$L5SSVC_URL/consul/consul-setup"
+chmod +x ./consul-setup
 
 mkdir /etc/consul
 cd /etc/consul
@@ -70,8 +70,8 @@ cd /usr/bin
 wget -qO nomad.zip "$NOMAD_URL"
 unzip nomad.zip
 rm nomad.zip
-wget -q "$L5SSVC_URL/nomad/nomad-start"
-chmod +x ./nomad-start
+wget -q "$L5SSVC_URL/nomad/nomad-setup"
+chmod +x ./nomad-setup
 
 mkdir /etc/nomad
 cd /etc/nomad
@@ -99,7 +99,10 @@ if [ "$(which docker)" == '' ]; then
 fi
 
 
-echo 'ensuring services are running'
+echo 'starting services are running'
+/usr/bin/consul-setup
+/usr/bin/nomad-setup
+
 systemctl enable nomad
 systemctl enable consul
 systemctl enable fabio

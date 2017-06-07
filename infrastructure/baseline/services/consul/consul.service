@@ -14,4 +14,4 @@ RestartSec=30
 KillSignal=SIGTERM
 SyslogIdentifier=consul
 ExecReload=/bin/kill -HUP $MAINPID
-ExecStart=/usr/bin/consul-start
+ExecStart=/usr/bin/consul agent -config-dir=/etc/consul
