@@ -52,6 +52,7 @@ wget -qO consul.zip "$CONSUL_URL"
 unzip consul.zip
 rm consul.zip
 wget -q "$L5SSVC_URL/consul/consul-start"
+chmod +x ./consul-start
 
 mkdir /etc/consul
 cd /etc/consul
@@ -70,12 +71,13 @@ wget -qO nomad.zip "$NOMAD_URL"
 unzip nomad.zip
 rm nomad.zip
 wget -q "$L5SSVC_URL/nomad/nomad-start"
+chmod +x ./nomad-start
 
 mkdir /etc/nomad
 cd /etc/nomad
 wget -q "$L5SSVC_URL/nomad/nomad-base.tpl"
-wget -q "$L5SSVC_URL/nomad/consul-client.hcl"
-wget -q "$L5SSVC_URL/nomad/consul-server.hcl"
+wget -q "$L5SSVC_URL/nomad/nomad-client.hcl"
+wget -q "$L5SSVC_URL/nomad/nomad-server.hcl"
 
 cd /lib/systemd/system
 wget -q "$L5SSVC_URL/nomad/nomad.service"
